@@ -4,7 +4,7 @@ import React from 'react'
 
 const Loading = () => {
   return (
-    <div><CircularProgress />Loading</div>
+    <div><CircularProgress/>Loading</div>
   )
 }
 

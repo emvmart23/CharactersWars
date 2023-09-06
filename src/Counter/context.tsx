@@ -1,17 +1,17 @@
 "use client";
 
+import GetData from "@/Api";
 import React, { createContext, useState } from "react";
 
 interface MyContextType {
   isDataShowOpen: boolean;
-  setIsDataShowOpen :React.Dispatch<React.SetStateAction<boolean>>; 
-  isLoading: boolean; 
+  setIsDataShowOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
   error: boolean;
   setError: React.Dispatch<React.SetStateAction<boolean>>;
-  items: any[]
-  setItems:React.Dispatch<React.SetStateAction<[]>>;
-  
+  info: any[];
+  setInfo: React.Dispatch<React.SetStateAction<[]>>;
 }
 
 interface ContextProps {
@@ -20,24 +20,25 @@ interface ContextProps {
 
 const typeStateDefault = {
   isLoading: true,
-  setIsLoading: () => '',
+  setIsLoading: () => "",
   error: false,
-  setError: () => '',
+  setError: () => "",
   isDataShowOpen: false,
-  setIsDataShowOpen: () => '',
-  items : [], 
-  setItems : () => []
-}
+  setIsDataShowOpen: () => "",
+  info: [],
+  setInfo: () => [],
+};
 
 export const ContextStarWars = createContext<MyContextType>(typeStateDefault);
 
 export const ContextProvider: React.FC<ContextProps> = ({ children }) => {
-
+  const { info, setInfo } = GetData();
   const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [ error, setError ] = useState<boolean>(false)
-  const [ isDataShowOpen, setIsDataShowOpen ] = useState(false)
-  const [items, setItems] = useState<[]>([]);
- 
+  const [error, setError] = useState<boolean>(false);
+
+  // show details for characters
+  const [isDataShowOpen, setIsDataShowOpen] = useState<boolean>(false);
+
   return (
     <ContextStarWars.Provider
       value={{
@@ -47,8 +48,8 @@ export const ContextProvider: React.FC<ContextProps> = ({ children }) => {
         setError,
         isDataShowOpen,
         setIsDataShowOpen,
-        items, 
-        setItems
+        info,
+        setInfo,
       }}
     >
       {children}

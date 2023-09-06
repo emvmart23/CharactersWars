@@ -1,17 +1,26 @@
-import React from 'react'
+'use client'
+import { ContextStarWars } from '@/Counter/context'
+import React, { useContext, useState } from 'react'
 
-// interface CharacterInfo {
-//     data: {
-//       name: string
-//       height: string
-//     }
-// }
 
 const CharacterInfo = () => {
-  return (
-    <div className='flex fixed border border-black h-full w-full right-[80%]'>
-        
+
+  const { isDataShowOpen } = useContext(ContextStarWars)
+  
+  let character;
+
+  if(isDataShowOpen) {
+    character = (
+    <div className='flex flex-col fixed border p-6 border-black h-full w-full left-[20%]'>
+
     </div>
+    ) 
+  }
+
+  return (
+    <>
+      {character}
+    </>
   )
 }
 
