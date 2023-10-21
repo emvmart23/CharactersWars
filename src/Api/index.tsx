@@ -1,10 +1,9 @@
 "use client";
 import { ContextStarWars } from "@/Counter/context";
+import { CharactersProps, Props } from "@/components/Characters";
 import { useContext, useEffect, useState } from "react";
 
 const GetData = () => {
-  const { isLoading, setIsLoading } =
-    useContext(ContextStarWars);
 
   const [ info, setInfo ] = useState<[]>([])
 
@@ -14,11 +13,10 @@ const GetData = () => {
       .then((data) => setInfo(data.results))
       .catch((error) => {
         console.log("error", error);
-        setIsLoading(false);
       });
   }, []);
 
-  return { info, setInfo };
+  return { info };
 };
 
 export default GetData;

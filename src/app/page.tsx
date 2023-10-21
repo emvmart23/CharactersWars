@@ -1,29 +1,26 @@
-'use client'
-import React, { useContext } from 'react'
-import Characters from '@/components/Characters'
-import InfoList from '@/components/InfoList'
-import { ContextStarWars } from '@/Counter/context'
-import Loading from '@/components/InfoLoading'
-import CharacterInfo from '@/components/CharacterInfo'
+"use client";
+import React from "react";
+import { Props } from "@/components/Characters";
+import GetData from "@/Api";
+import { InfoList } from "@/common/components/index";
+import { Characters, CharacterInfo}  from '../components/index'
 
 export default function page() {
-
-  const { info } = useContext(ContextStarWars)
+  const { info } = GetData();
 
   return (
     <>
-      
-      {info === null && <Loading></Loading>}
-      {info !== null && (
-        
+      {info ? (
         <InfoList>
-          {info?.map((item) => (
-          <Characters key={item.name} data={item} />
+          {info.map((item: Props) => (
+            <Characters key={item.name} data={item} />
           ))}
         </InfoList>
+      ) : (
+        <div>cargando.........</div>
       )}
-      
-    </>
-  )
-}
 
+      <CharacterInfo />
+    </>
+  );
+}

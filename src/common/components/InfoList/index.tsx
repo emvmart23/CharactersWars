@@ -6,7 +6,7 @@ interface InfoListProps {
 
 const InfoList:React.FC<InfoListProps> = ({ children }) => {
   return (
-    <div className='w-[20%] h-18'>
+    <div className='w-screen h-auto absolute'>
         {children}
     </div>
   )

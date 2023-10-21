@@ -1,55 +1,52 @@
 "use client";
+import React, { RefObject, createContext, useContext, useRef, useState } from "react";
 
-import GetData from "@/Api";
-import React, { createContext, useState } from "react";
-
-interface MyContextType {
-  isDataShowOpen: boolean;
-  setIsDataShowOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
-  error: boolean;
-  setError: React.Dispatch<React.SetStateAction<boolean>>;
-  info: any[];
-  setInfo: React.Dispatch<React.SetStateAction<[]>>;
+interface PropsType {
+  eye_color?: string;
+  hair_color?: string;
+  birth_year?: string;
 }
 
-interface ContextProps {
+interface CharactersContextType {
+  isDataShowOpen: boolean;
+  characterInfoData:
+    | PropsType
+    | {
+        eye_color: string;
+        hair_color: string;
+        birth_year: string;
+      };
+  setCharacterInfoData: React.Dispatch<React.SetStateAction<{}>>;
+  nav: RefObject<HTMLDivElement>;
+  navContent: boolean
+  setNavContent: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+export const ContextStarWars = createContext<CharactersContextType | undefined>(
+  undefined
+);
+
+export interface Props {
   children: React.ReactNode;
 }
 
-const typeStateDefault = {
-  isLoading: true,
-  setIsLoading: () => "",
-  error: false,
-  setError: () => "",
-  isDataShowOpen: false,
-  setIsDataShowOpen: () => "",
-  info: [],
-  setInfo: () => [],
-};
-
-export const ContextStarWars = createContext<MyContextType>(typeStateDefault);
-
-export const ContextProvider: React.FC<ContextProps> = ({ children }) => {
-  const { info, setInfo } = GetData();
-  const [isLoading, setIsLoading] = useState<boolean>(true);
-  const [error, setError] = useState<boolean>(false);
-
+export const ContextCharacterProvider: React.FC<Props> = ({ children }) => {
   // show details for characters
   const [isDataShowOpen, setIsDataShowOpen] = useState<boolean>(false);
+  const [characterInfoData, setCharacterInfoData] = useState<{}>({});
+  const nav = useRef<null | HTMLDivElement>(null);
 
+  // react conditional rendering
+  const [navContent, setNavContent] = useState<boolean>(false)
   return (
     <ContextStarWars.Provider
       value={{
-        isLoading,
-        setIsLoading,
-        error,
-        setError,
         isDataShowOpen,
-        setIsDataShowOpen,
-        info,
-        setInfo,
+        characterInfoData,
+        setCharacterInfoData,
+        nav,
+        setNavContent,
+        navContent
       }}
     >
       {children}
@@ -57,4 +54,11 @@ export const ContextProvider: React.FC<ContextProps> = ({ children }) => {
   );
 };
 
-export default ContextProvider;
+
+export const dataStar = () => {
+  const context = useContext(ContextStarWars);
+  if (context === undefined) {
+    throw new Error(`context is null.`);
+  }
+  return context;
+};
