@@ -1,26 +1,31 @@
 "use client";
-import React from "react";
-import { Props } from "@/components/Characters";
-import GetData from "@/Api";
-import { InfoList } from "@/common/components/index";
-import { Characters, CharacterInfo}  from '../components/index'
+import React, { useEffect } from "react";
+import GetData from "@/api";
+import { Characters, CharacterInfo } from "../components/index";
+import { Box, Flex, Text, VStack } from "@chakra-ui/react";
+import { dataStar } from "@/context/context";
+import Loading from "@/components/Loading";
+import Error from "@/components/Error";
 
 export default function page() {
   const { info } = GetData();
+  const { isLoading, error } = dataStar()
 
   return (
-    <>
-      {info ? (
-        <InfoList>
-          {info.map((item: Props) => (
+    <Flex>
+      
+      {isLoading && <Loading/>}
+      {error && <Error/> }
+
+      {info &&  (
+        <Box  pos={"relative"} w={{base:"full", md:"320px"}} minW={{ base:"320px"}} borderRight={"2px solid gray"}>
+          {info[0].results.map((item) => (
             <Characters key={item.name} data={item} />
           ))}
-        </InfoList>
-      ) : (
-        <div>cargando.........</div>
-      )}
+        </Box>
+      )} 
 
       <CharacterInfo />
-    </>
+    </Flex>
   );
 }

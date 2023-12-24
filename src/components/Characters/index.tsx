@@ -1,38 +1,53 @@
 import React, { MouseEventHandler } from "react";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { dataStar } from "@/Counter/context";
 
-export interface Props {
-  name: string;
-  height: string;
-}
+import { Button, Center, Flex, Text } from "@chakra-ui/react";
+import { IconChevronRight } from "@tabler/icons-react";
+import { dataStar } from "@/context/context";
 
 export interface CharactersProps {
-  data: Props;
+  data: People;
 }
 
-const Characters: React.FC<CharactersProps> = ({ data }) => {
-  const { setCharacterInfoData, characterInfoData, nav, setNavContent } =
-    dataStar();
+const Characters = ({ data }: CharactersProps) => {
+  const { setCharacterInfoData, setIsClickedItem, isClickedItem } = dataStar();
 
   const handleInfo: MouseEventHandler<HTMLButtonElement> = () => {
-    if (nav.current != null) {
-      nav.current.style.left = "0";
-    }
     setCharacterInfoData(data);
-    setNavContent(true);
+    setIsClickedItem(true);
   };
 
   return (
-    <div className="flex justify-between border border-black p-3 w-full h-28 min-w-[320px] sm:w-72">
-      <p className="flex flex-col text-2xl">
-        <span>{data.name}</span>
-        <span>{data.height}</span>
-      </p>
-      <button onClick={handleInfo}>
-        <KeyboardArrowRightIcon className="w-10 h-10" />
-      </button>
-    </div>
+    <Flex
+      w={{base:"full", md:"320px"}}
+      h={69}
+      p={3}
+      justifyContent={"space-between"}
+      borderBlock={"1px solid gray"}
+    >
+      <Flex direction={"column"}>
+        <Text
+          lineHeight={"20.29px"}
+          fontWeight={700}
+          fontSize={17}
+          as={"h1"}
+          color={"#333333"}
+        >
+          {data.name}
+        </Text> 
+        <Text
+          lineHeight={"16.71px"}
+          fontWeight={400}
+          fontSize={14}
+          as={"p"}
+          color={"#828282"}
+        ></Text>
+      </Flex>
+      <Center>
+        <Button variant={"ghost"} onClick={handleInfo} bg={"white"}>
+          <IconChevronRight width={24} height={24} />
+        </Button>
+      </Center>
+    </Flex>
   );
 };
 
