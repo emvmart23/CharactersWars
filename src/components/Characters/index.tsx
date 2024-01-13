@@ -1,24 +1,31 @@
+"use client";
 import React, { MouseEventHandler } from "react";
-
 import { Button, Center, Flex, Text } from "@chakra-ui/react";
 import { IconChevronRight } from "@tabler/icons-react";
 import { dataStar } from "@/context/context";
 
-export interface CharactersProps {
-  data: People;
+interface characterProps {
+  data: CharacterType;
+  currentPlanet: PlanetsType;
+  currentVehicles: VehiclesType;
 }
 
-const Characters = ({ data }: CharactersProps) => {
-  const { setCharacterInfoData, setIsClickedItem, isClickedItem } = dataStar();
+const Characters = ({
+  data,
+  currentPlanet,
+  currentVehicles,
+}: characterProps) => {
+  const { setIsOpenDetails, setIsClickedItem, setIsDataShowOpen } = dataStar();
 
   const handleInfo: MouseEventHandler<HTMLButtonElement> = () => {
-    setCharacterInfoData(data);
     setIsClickedItem(true);
+    setIsOpenDetails(data);
+    setIsDataShowOpen(currentVehicles);
   };
 
   return (
     <Flex
-      w={{base:"full", md:"320px"}}
+      w={{ base: "full", md: "320px" }}
       h={69}
       p={3}
       justifyContent={"space-between"}
@@ -31,16 +38,20 @@ const Characters = ({ data }: CharactersProps) => {
           fontSize={17}
           as={"h1"}
           color={"#333333"}
+          mb={1}
         >
           {data.name}
-        </Text> 
+        </Text>
+
         <Text
           lineHeight={"16.71px"}
           fontWeight={400}
           fontSize={14}
           as={"p"}
           color={"#828282"}
-        ></Text>
+        >
+          {currentPlanet.name}
+        </Text>
       </Flex>
       <Center>
         <Button variant={"ghost"} onClick={handleInfo} bg={"white"}>

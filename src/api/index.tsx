@@ -1,40 +1,19 @@
-"use client";
-import { dataStar } from "@/context/context";
-import { useEffect, useState } from "react";
+export async function fetchData<Response = any>(
+  url: string,
+  init?: RequestInit
+): Promise<Response> {
+  const response = await fetch(`https://swapi.dev/api/${url}`, {
+    ...(init ?? {}),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  });
 
-const apiArrays = [
-  fetch("https://swapi.dev/api/people/"),
-  fetch("https://swapi.dev/api/planets/"),
-  fetch("https://swapi.dev/api/vehicles/"),
-];
+  if (!response.ok) {
+    const message = `An error has ocurred: ${response.status}`;
+    throw new Error(message);
+  }
 
-interface InfoType {
-  results: { name: any }[];
+  return response.json();
 }
-
-const GetData = () => {
-  const [info, setInfo] = useState<InfoType[] | null>(null);
-  const { setIsLoading, setError } = dataStar();
-
-  useEffect(() => {
-    setIsLoading(true);
-    Promise.all(apiArrays)
-      .then(async (responses) => {
-        const data = await Promise.all(
-          responses.map((response) => response.json())
-        );
-        setInfo(data);
-        setIsLoading(false);
-      })
-      .catch((err) => {
-        setError(true);
-        console.error(err);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
-  }, []);
-  return { info };
-};
-
-export default GetData;

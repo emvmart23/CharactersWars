@@ -1,12 +1,11 @@
 "use client";
 import React from "react";
-
-import { Box, Button, Flex, Text } from "@chakra-ui/react";
+import { Button, Flex, Show, Text } from "@chakra-ui/react";
 import { dataStar } from "@/context/context";
 import { IconArrowNarrowLeft } from "@tabler/icons-react";
 
 const Navbar = () => {
-  const { setIsClickedItem, isClickedItem, characterInfoData } = dataStar();
+  const { setIsClickedItem, isClickedItem, isOpenDetails } = dataStar();
 
   const handleInfo = () => {
     setIsClickedItem(!isClickedItem);
@@ -25,11 +24,18 @@ const Navbar = () => {
     >
       {isClickedItem ? (
         <Flex justify={"between"} w={"full"}>
-          <Button pos={"absolute"} variant={"ghost"} onClick={handleInfo}>
-            <IconArrowNarrowLeft color="white"/>
-          </Button>
-          <Text mx={"auto"} fontWeight={700} fontSize={"17px"} lineHeight={"20.29px"}>
-            {characterInfoData?.name}
+          <Show below="md">
+            <Button pos={"absolute"} variant={"ghost"} onClick={handleInfo}>
+              <IconArrowNarrowLeft color="white" />
+            </Button>
+          </Show>
+          <Text
+            mx={"auto"}
+            fontWeight={700}
+            fontSize={"17px"}
+            lineHeight={"20.29px"}
+          >
+            {isOpenDetails?.name}
           </Text>
         </Flex>
       ) : (

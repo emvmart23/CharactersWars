@@ -1,27 +1,26 @@
 "use client";
-
 import { dataStar } from "@/context/context";
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 const CharacterInfo = () => {
-  const { characterInfoData, isClickedItem } = dataStar();
+  const { isOpenDetails, isClickedItem, isDataShowOpen } = dataStar();
 
   const starWarsCharacters = [
     {
       id: 1,
       title: "Eye Color",
-      description: characterInfoData?.eye_color,
+      description: isOpenDetails?.eye_color,
     },
     {
       id: 2,
       title: "Hair Color",
-      description: characterInfoData?.hair_color,
+      description: isOpenDetails?.hair_color,
     },
     {
       id: 3,
       title: "Skin Color",
-      description: characterInfoData?.birth_year,
+      description: isOpenDetails?.birth_year,
     },
   ];
 
@@ -40,22 +39,27 @@ const CharacterInfo = () => {
       color={"black"}
       minW={{ base: "320px" }}
     >
-      <Text fontWeight={700} fontSize={"17px"} lineHeight={"20.29px"} mb={6}>
+      <Text fontWeight={700} fontSize={"17px"} lineHeight={"20.29px"} mb={6} mt={10}>
         General information
       </Text>
       {starWarsCharacters.map((char) => (
-        <Flex key={char.id} justifyContent={"space-between"}>
+        <Flex
+          key={char.id}
+          alignItems={"center"}
+          justifyContent={"space-between"}
+          borderBottom={"1px"}
+          borderColor={"gray.200"}
+          py={5}
+        >
           <Text
             fontSize={"17px"}
             lineHeight={"20.29px"}
             fontWeight={700}
             color={"#828282"}
-            mb={6}
           >
             {char.title}
           </Text>
           <Text
-            as={"p"}
             fontWeight={700}
             fontSize={"17px"}
             lineHeight={"20.29px"}
@@ -66,16 +70,26 @@ const CharacterInfo = () => {
         </Flex>
       ))}
 
-      <Text
-        as={"h2"}
-        fontWeight={700}
-        fontSize={"17px"}
-        lineHeight={"20.29px"}
-        mb={6}
-      >
-        Vehicles
-      </Text>
-      <Flex justifyContent={"space-between"}>//faltante</Flex>
+      <Box borderBottom={"1px"} borderColor={"gray.200"} mt={20}>
+        <Text
+          fontSize={"17px"}
+          lineHeight={"20.29px"}
+          fontWeight={700}
+          color={"#828282"}
+        >
+          Vehicles
+        </Text>
+        <Text
+          as={"h2"}
+          fontWeight={700}
+          fontSize={"17px"}
+          lineHeight={"20.29px"}
+          py={5}
+          px={2}
+        >
+          {isDataShowOpen?.name}
+        </Text>
+      </Box>
     </Flex>
   );
 };

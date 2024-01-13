@@ -1,31 +1,42 @@
 "use client";
-import React, { useEffect } from "react";
-import GetData from "@/api";
-import { Characters, CharacterInfo } from "../components/index";
-import { Box, Flex, Text, VStack } from "@chakra-ui/react";
+import React from "react";
+import { Characters, CharacterInfo, Loading, Error } from "../components/index";
+import { Box, Flex } from "@chakra-ui/react";
 import { dataStar } from "@/context/context";
-import Loading from "@/components/Loading";
-import Error from "@/components/Error";
+import { useStarWarsData } from "@/hooks/useStarWarsData";
 
 export default function page() {
-  const { info } = GetData();
-  const { isLoading, error } = dataStar()
+  const { isLoading, error } = dataStar();
+  const { character, planets, vehicles } = useStarWarsData();
 
   return (
-    <Flex>
-      
-      {isLoading && <Loading/>}
-      {error && <Error/> }
+    <>
+      {isLoading && <Loading />}
+      {error && <Error />}
 
-      {info &&  (
-        <Box  pos={"relative"} w={{base:"full", md:"320px"}} minW={{ base:"320px"}} borderRight={"2px solid gray"}>
-          {info[0].results.map((item) => (
-            <Characters key={item.name} data={item} />
-          ))}
+      <Flex>
+        <Box
+          pos={"relative"}
+          w={{ base: "full", md: "320px" }}
+          minW={{ base: "320px" }}
+          borderRight={"2px solid gray"}
+        >
+          {character.map((char, index) => {
+            const currentPlanet = planets[index];
+            const currentVehicles = vehicles[index];
+            return (
+              <Characters
+                key={index}
+                data={char}
+                currentPlanet={currentPlanet}
+                currentVehicles={currentVehicles}
+              />
+            );
+          })}
         </Box>
-      )} 
 
-      <CharacterInfo />
-    </Flex>
+        <CharacterInfo />
+      </Flex>
+    </>
   );
 }
