@@ -25,7 +25,7 @@ export interface Props {
 export const ContextCharacterProvider: React.FC<Props> = ({ children }) => {
   // show details for characters
   const [isDataShowOpen, setIsDataShowOpen] = useState<VehiclesType | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   // if clicked item of character
