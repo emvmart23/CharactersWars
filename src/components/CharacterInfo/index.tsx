@@ -1,10 +1,10 @@
 "use client";
-import { dataStar } from "@/context/context";
+import { useStar } from "@/context/context";
 import { Box, Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 const CharacterInfo = () => {
-  const { isOpenDetails, isClickedItem, isDataShowOpen } = dataStar();
+  const { isOpenDetails, isClickedItem, isDataShowOpen } = useStar();
 
   const starWarsCharacters = [
     {
@@ -39,7 +39,13 @@ const CharacterInfo = () => {
       color={"black"}
       minW={{ base: "320px" }}
     >
-      <Text fontWeight={700} fontSize={"17px"} lineHeight={"20.29px"} mb={6} mt={10}>
+      <Text
+        fontWeight={700}
+        fontSize={"17px"}
+        lineHeight={"20.29px"}
+        mb={6}
+        mt={10}
+      >
         General information
       </Text>
       {starWarsCharacters.map((char) => (

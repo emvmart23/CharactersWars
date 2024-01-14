@@ -1,11 +1,11 @@
 "use client";
 
 import { fetchData } from "@/api";
-import { dataStar } from "@/context/context";
+import { useStar } from "@/context/context";
 import { useEffect, useState } from "react";
 
 export function useStarWarsData() {
-  const { setIsLoading, setError } = dataStar();
+  const { setIsLoading, setError } = useStar();
   const [character, setCharacter] = useState<CharacterType[]>([]);
   const [planets, setPlanets] = useState<PlanetsType[]>([]);
   const [vehicles, setVehicles] = useState<VehiclesType[]>([]);

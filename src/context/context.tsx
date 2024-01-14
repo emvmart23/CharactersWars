@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useRef, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 interface CharactersContextType {
   isDataShowOpen: VehiclesType | null
@@ -25,7 +25,7 @@ export interface Props {
 export const ContextCharacterProvider: React.FC<Props> = ({ children }) => {
   // show details for characters
   const [isDataShowOpen, setIsDataShowOpen] = useState<VehiclesType | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   // if clicked item of character
@@ -54,7 +54,7 @@ export const ContextCharacterProvider: React.FC<Props> = ({ children }) => {
   );
 };
 
-export const dataStar = () => {
+export const useStar = () => {
   const context = useContext(ContextStarWars);
   if (context === undefined) {
     throw new Error(`context's null.`);
