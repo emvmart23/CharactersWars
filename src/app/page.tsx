@@ -1,7 +1,6 @@
 "use client";
 import { Characters, CharacterInfo, Loading, Error } from "../components/index";
 import { Box, Flex } from "@chakra-ui/react";
-import { useStar } from "@/context/context";
 import { useStarWarsData } from "@/hooks/useStarWarsData";
 
 export default function Page() {

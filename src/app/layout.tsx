@@ -19,6 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta name="author" content="Max Martinez" />
+        <link rel="icon" type="image/svg+xml" href="./logoStar.webp" />
+        
+      </head>
       <body className={inter.className}>
         <ChakraProvider>
           <ContextCharacterProvider>
