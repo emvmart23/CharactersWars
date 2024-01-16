@@ -1,7 +1,6 @@
 "use client";
 import { useStar } from "@/context/context";
 import { Box, Flex, Text } from "@chakra-ui/react";
-import React from "react";
 
 const CharacterInfo = () => {
   const { isOpenDetails, isClickedItem, isDataShowOpen } = useStar();

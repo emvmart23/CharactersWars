@@ -2,14 +2,10 @@
 import React, { createContext, useContext, useState } from "react";
 
 interface CharactersContextType {
-  isDataShowOpen: VehiclesType | null
-  setIsDataShowOpen: React.Dispatch<React.SetStateAction<VehiclesType | null >>;
-  isLoading: boolean;
-  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  isDataShowOpen: VehiclesType | null;
+  setIsDataShowOpen: React.Dispatch<React.SetStateAction<VehiclesType | null>>;
   isClickedItem: boolean;
   setIsClickedItem: React.Dispatch<React.SetStateAction<boolean>>;
-  error: any;
-  setError: React.Dispatch<React.SetStateAction<any>>;
   setIsOpenDetails: React.Dispatch<React.SetStateAction<CharacterType | null>>;
   isOpenDetails: CharacterType | null;
 }
@@ -24,9 +20,9 @@ export interface Props {
 
 export const ContextCharacterProvider: React.FC<Props> = ({ children }) => {
   // show details for characters
-  const [isDataShowOpen, setIsDataShowOpen] = useState<VehiclesType | null>(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [isDataShowOpen, setIsDataShowOpen] = useState<VehiclesType | null>(
+    null
+  );
 
   // if clicked item of character
   const [isClickedItem, setIsClickedItem] = useState(false);
@@ -39,12 +35,8 @@ export const ContextCharacterProvider: React.FC<Props> = ({ children }) => {
       value={{
         isDataShowOpen,
         setIsDataShowOpen,
-        isLoading,
-        setIsLoading,
         isClickedItem,
         setIsClickedItem,
-        error,
-        setError,
         isOpenDetails,
         setIsOpenDetails,
       }}

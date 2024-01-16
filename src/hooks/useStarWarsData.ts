@@ -1,11 +1,11 @@
 "use client";
 
 import { fetchData } from "@/api";
-import { useStar } from "@/context/context";
 import { useEffect, useState } from "react";
 
 export function useStarWarsData() {
-  const { setIsLoading, setError } = useStar();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<any>(null);
   const [character, setCharacter] = useState<CharacterType[]>([]);
   const [planets, setPlanets] = useState<PlanetsType[]>([]);
   const [vehicles, setVehicles] = useState<VehiclesType[]>([]);
@@ -31,5 +31,5 @@ export function useStarWarsData() {
     };
     getData();
   }, []);
-  return { planets, character, vehicles };
+  return { planets, character, vehicles, isLoading, error };
 }

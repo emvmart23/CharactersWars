@@ -1,11 +1,10 @@
 "use client";
-import React from "react";
 import { Button, Flex, Show, Text } from "@chakra-ui/react";
-import { dataStar } from "@/context/context";
 import { IconArrowNarrowLeft } from "@tabler/icons-react";
+import { useStar } from "@/context/context";
 
 const Navbar = () => {
-  const { setIsClickedItem, isClickedItem, isOpenDetails } = dataStar();
+  const { setIsClickedItem, isClickedItem, isOpenDetails } = useStar();
 
   const handleInfo = () => {
     setIsClickedItem(!isClickedItem);

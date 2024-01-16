@@ -2,7 +2,8 @@
 import React, { MouseEventHandler } from "react";
 import { Button, Center, Flex, Text } from "@chakra-ui/react";
 import { IconChevronRight } from "@tabler/icons-react";
-import { dataStar } from "@/context/context";
+import { useStar } from "@/context/context";
+
 
 interface characterProps {
   data: CharacterType;
@@ -15,7 +16,7 @@ const Characters = ({
   currentPlanet,
   currentVehicles,
 }: characterProps) => {
-  const { setIsOpenDetails, setIsClickedItem, setIsDataShowOpen } = dataStar();
+  const { setIsOpenDetails, setIsClickedItem, setIsDataShowOpen } = useStar();
 
   const handleInfo: MouseEventHandler<HTMLButtonElement> = () => {
     setIsClickedItem(true);
